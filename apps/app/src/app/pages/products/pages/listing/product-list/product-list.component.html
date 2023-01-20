@@ -1,0 +1,13 @@
+<div>
+  <h1>{{ 'Product List' }}</h1>
+  <app-category
+    *ngFor="let category of categories$ | async"
+    [category]="category"
+  ></app-category>
+  <app-product
+    *ngFor="let product of products$ | async"
+    [product]="product"
+    (productId)="showProductDetail($event)"
+    (deleteProductId)="deleteProduct($event)"
+  ></app-product>
+</div>
