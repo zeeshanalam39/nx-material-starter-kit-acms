@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -6,13 +6,11 @@ import { Observable } from 'rxjs';
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent {
   @Input() categories$!: Observable<string[]>;
   @Output() selectedCategory: EventEmitter<string> = new EventEmitter();
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   getSelectedCategory(category: string): void {
     this.selectedCategory.emit(category);

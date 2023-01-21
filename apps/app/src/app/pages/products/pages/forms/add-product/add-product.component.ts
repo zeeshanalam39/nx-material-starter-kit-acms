@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IAddProduct } from '../../../../../shared/models/product.interface';
@@ -10,7 +10,7 @@ import { ProductService } from '../../../../../shared/services/product.service';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
 })
-export class AddProductComponent implements OnInit {
+export class AddProductComponent {
   addProductForm = this.formBuilder.group({
     title: ['', [Validators.required]],
     price: ['', [Validators.required]],
@@ -21,8 +21,6 @@ export class AddProductComponent implements OnInit {
     private productService: ProductService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {}
 
   addProduct(formData: any) {
     const httpOptions = new HttpHeaders({
