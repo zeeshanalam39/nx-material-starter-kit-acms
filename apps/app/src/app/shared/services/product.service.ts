@@ -58,9 +58,13 @@ export class ProductService {
 
   sortProducts(sortBy: string): Observable<IProduct[]> {
     /*
+    * * * * *
+    * * * * *
       I have used backend API to get sorted(asc|desc) results.
       Provided API is sorting products with `ids` instead of `price`.
       To demonstrate that I have shown product `id` with each product in listing.
+    * * * * *
+    * * * * *
     */
     if (sortBy === 'desc') {
       return this.http.get<IProduct[]>(`${PRODUCT_API_URL}?sort=${sortBy}`);

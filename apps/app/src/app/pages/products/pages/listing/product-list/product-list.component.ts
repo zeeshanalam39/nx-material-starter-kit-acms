@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, Subscription, switchMap } from 'rxjs';
 import {
   IDropdown,
   IProduct,
@@ -12,7 +12,7 @@ import { ProductService } from '../../../../../shared/services/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[]>;
   categories$!: Observable<string[]>;
 
@@ -21,6 +21,8 @@ export class ProductListComponent implements OnInit {
     { value: 'asc', viewValue: 'Low to high' },
     { value: 'desc', viewValue: 'High to low' },
   ];
+
+  private deleteProductSubscription: Subscription | undefined;
 
   constructor(private productService: ProductService, private router: Router) {}
 
@@ -36,7 +38,9 @@ export class ProductListComponent implements OnInit {
   }
 
   deleteProduct(productId: string): void {
-    this.productService.deleteProduct(productId).subscribe();
+    this.deleteProductSubscription = this.productService
+      .deleteProduct(productId)
+      .subscribe();
   }
 
   getProductsByCategory(category: string): void {
@@ -45,5 +49,11 @@ export class ProductListComponent implements OnInit {
 
   sortProducts(sortBy: string): void {
     this.products$ = this.productService.sortProducts(sortBy);
+  }
+
+  ngOnDestroy(): void {
+    if (this.deleteProductSubscription) {
+      this.deleteProductSubscription.unsubscribe();
+    }
   }
 }

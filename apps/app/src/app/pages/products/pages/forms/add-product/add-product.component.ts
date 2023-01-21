@@ -1,7 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { IAddProduct } from '../../../../../shared/models/product.interface';
 import { ProductService } from '../../../../../shared/services/product.service';
 
@@ -10,12 +11,15 @@ import { ProductService } from '../../../../../shared/services/product.service';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnDestroy {
   addProductForm = this.formBuilder.group({
     title: ['', [Validators.required]],
     price: ['', [Validators.required]],
     description: ['', [Validators.required]],
   });
+
+  private addProductSubscription: Subscription | undefined;
+
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
@@ -27,16 +31,24 @@ export class AddProductComponent {
       'Content-Type': 'application/json',
     });
 
-    this.productService.addProduct(formData, httpOptions).subscribe(
-      (data) => {
-        if (data && data.id) {
-          this.addProductForm.reset();
-          this.router.navigate(['products']);
+    this.addProductSubscription = this.productService
+      .addProduct(formData, httpOptions)
+      .subscribe(
+        (data) => {
+          if (data && data.id) {
+            this.addProductForm.reset();
+            this.router.navigate(['products']);
+          }
+        },
+        (error: Error) => {
+          console.log(`Error adding new product: ${error}`);
         }
-      },
-      (error: Error) => {
-        console.log(`Error adding new product: ${error}`);
-      }
-    );
+      );
+  }
+
+  ngOnDestroy(): void {
+    if (this.addProductSubscription) {
+      this.addProductSubscription.unsubscribe();
+    }
   }
 }
