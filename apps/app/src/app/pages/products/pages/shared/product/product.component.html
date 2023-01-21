@@ -1,4 +1,8 @@
 <div>
-  <p (click)="showProductDetail(product.id)">{{product?.title + " " + product?.price}}</p>
-  <button (click)="deleteProduct(product.id)">{{"Delete"}}</button>
+  <span (click)="showProductDetail(product.id)">
+    {{ 'id: ' + product.id + ' - ' + product.title + ' ' + product.price }}
+  </span>
+  <button mat-icon-button color="warn" (click)="deleteProduct(product.id)">
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>

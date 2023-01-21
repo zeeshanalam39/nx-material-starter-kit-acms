@@ -1,0 +1,9 @@
+<h3>Sort by Price</h3>
+<mat-form-field appearance="fill">
+  <mat-label>{{ dropdownPlaceholder }}</mat-label>
+  <mat-select (selectionChange)="change($event)">
+    <mat-option *ngFor="let option of dropdownOptions" [value]="option.value">
+      {{ option.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

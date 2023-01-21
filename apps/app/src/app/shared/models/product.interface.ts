@@ -1,16 +1,24 @@
-export interface Product {
-  id: string; // Todo: Can id be optional?!!!
+export interface IProduct {
+  id: string;
   title: string;
   price: string;
 }
 
-export interface AddProduct extends Product {
+export interface IAddProduct {
+  title: string;
+  price: string;
   description: string;
 }
 
-export interface IProductDetails {
-  title: string;
-  description: string;
-  price: number;
+export interface IProductAdded extends IAddProduct {
+  id: string;
+}
+
+export interface IProductDetails extends IAddProduct {
   image: string;
+}
+
+export interface IDropdown {
+  value: string;
+  viewValue: string;
 }

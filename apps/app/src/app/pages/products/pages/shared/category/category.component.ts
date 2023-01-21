@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -6,9 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
-  @Input() category: string = '';
+  @Input() categories$!: Observable<string[]>;
+  @Output() selectedCategory: EventEmitter<string> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  getSelectedCategory(category: string): void {
+    this.selectedCategory.emit(category);
+  }
 }

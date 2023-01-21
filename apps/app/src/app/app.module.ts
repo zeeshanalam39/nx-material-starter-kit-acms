@@ -11,14 +11,19 @@ import { ProductListComponent } from './pages/products/pages/listing/product-lis
 import { AddProductComponent } from './pages/products/pages/forms/add-product/add-product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoryComponent } from './pages/products/pages/shared/category/category.component';
+import { DropdownComponent } from './pages/products/pages/shared/dropdown/dropdown.component';
+import { ProductsByCategoryComponent } from './pages/products/pages/listing/products-by-category/products-by-category.component';
 
 @NgModule({
   declarations: [
+    // Todo - Import Module instead of comps.
     AppComponent,
     ProductListComponent,
+    ProductsByCategoryComponent,
     ProductComponent,
     AddProductComponent,
     CategoryComponent,
+    DropdownComponent
   ],
   imports: [
     BrowserModule,

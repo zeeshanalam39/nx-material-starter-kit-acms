@@ -1,21 +1,37 @@
 <div>
   <h1>{{ 'Add Product' }}</h1>
+
   <form
     [formGroup]="addProductForm"
     (ngSubmit)="addProduct(addProductForm.value)"
   >
-    <label for="title">{{ 'Title * ' }}</label>
-    <input id="title" type="text" placeholder="" formControlName="title" />
-    <label for="price">{{ 'Price * ' }}</label>
-    <input id="price" type="text" placeholder="" formControlName="price" />
-    <label for="description">{{ 'Description * ' }}</label>
-    <input
-      id="description"
-      type="text"
-      placeholder=""
-      formControlName="description"
-    />
-    <button type="submit" [disabled]="!addProductForm.valid">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'Title' }}</mat-label>
+      <input matInput id="title" type="text" formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'Price' }}</mat-label>
+      <input matInput id="price" type="text" formControlName="price" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'Description' }}</mat-label>
+      <input
+        matInput
+        id="description"
+        type="text"
+        placeholder=""
+        formControlName="description"
+      />
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!addProductForm.valid"
+    >
       {{ 'Submit' }}
     </button>
   </form>

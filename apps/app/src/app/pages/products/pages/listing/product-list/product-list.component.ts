@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
-import { Product } from '../../../../../shared/models/product.interface';
+import {
+  IDropdown,
+  IProduct,
+} from '../../../../../shared/models/product.interface';
 import { ProductService } from '../../../../../shared/services/product.service';
 
 @Component({
@@ -10,8 +13,14 @@ import { ProductService } from '../../../../../shared/services/product.service';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products$!: Observable<Product[]>;
+  products$!: Observable<IProduct[]>;
   categories$!: Observable<string[]>;
+
+  dropdownPlaceholder = 'Sort by price';
+  dropdownOptions: IDropdown[] = [
+    { value: 'asc', viewValue: 'Low to high' },
+    { value: 'desc', viewValue: 'High to low' },
+  ];
 
   constructor(private productService: ProductService, private router: Router) {}
 
@@ -23,12 +32,18 @@ export class ProductListComponent implements OnInit {
   }
 
   showProductDetail(productId: string): void {
-    // Todo: Pass product details w/ route
     this.router.navigate(['product', productId]);
   }
 
   deleteProduct(productId: string): void {
-    // Todo: Inline button
     this.productService.deleteProduct(productId).subscribe();
+  }
+
+  getProductsByCategory(category: string): void {
+    this.router.navigate([category, 'products']);
+  }
+
+  sortProducts(sortBy: string): void {
+    this.products$ = this.productService.sortProducts(sortBy);
   }
 }

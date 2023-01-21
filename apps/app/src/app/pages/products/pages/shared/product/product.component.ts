@@ -1,6 +1,6 @@
 // import { ChangeDetectionStrategy } from '@angular/compiler';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product } from '../../../../../shared/models/product.interface';
+import { IProduct } from '../../../../../shared/models/product.interface';
 
 @Component({
   selector: 'app-product',
@@ -9,7 +9,7 @@ import { Product } from '../../../../../shared/models/product.interface';
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponent {
-  @Input() product!: Product;
+  @Input() product!: IProduct;
   @Output() productId: EventEmitter<string> = new EventEmitter();
   @Output() deleteProductId: EventEmitter<string> = new EventEmitter();
 

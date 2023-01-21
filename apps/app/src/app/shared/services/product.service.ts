@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { CATEGORIES_API_URL, PRODUCT_API_URL } from '../constants/app-config';
 import {
-  AddProduct,
+  IAddProduct,
   IProductDetails,
-  Product,
+  IProduct,
+  IProductAdded,
 } from '../models/product.interface';
 
 @Injectable({
@@ -15,22 +16,29 @@ export class ProductService {
   private refetchSubject = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) {}
-  // Todo: Config - Base URL
 
   get getRefetch() {
     return this.refetchSubject.asObservable();
   }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(PRODUCT_API_URL);
+  getProducts(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(PRODUCT_API_URL);
   }
 
-  addProduct(body: AddProduct, httpOptions: any): Observable<any> {
-    // Todo: any
-    return this.http.post<any>(
+  getProductsByCategory(productCategory: string): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(
+      `${PRODUCT_API_URL}/category/${productCategory}`
+    );
+  }
+
+  addProduct(
+    body: IAddProduct,
+    headers: HttpHeaders
+  ): Observable<IProductAdded> {
+    return this.http.post<IProductAdded>(
       PRODUCT_API_URL,
       JSON.stringify(body),
-      httpOptions
+      { headers }
     );
   }
 
@@ -42,9 +50,22 @@ export class ProductService {
     return this.http.get<string[]>(CATEGORIES_API_URL);
   }
 
-  deleteProduct(productId: string): Observable<Product> {
+  deleteProduct(productId: string): Observable<IProduct> {
     return this.http
-      .delete<Product>(`${PRODUCT_API_URL}/${productId}`)
+      .delete<IProduct>(`${PRODUCT_API_URL}/${productId}`)
       .pipe(tap(() => this.refetchSubject.next(null)));
+  }
+
+  sortProducts(sortBy: string): Observable<IProduct[]> {
+    /*
+      I have used backend API to get sorted(asc|desc) results.
+      Provided API is sorting products with `ids` instead of `price`.
+      To demonstrate that I have shown product `id` with each product in listing.
+    */
+    if (sortBy === 'desc') {
+      return this.http.get<IProduct[]>(`${PRODUCT_API_URL}?sort=${sortBy}`);
+    } else {
+      return this.getProducts();
+    }
   }
 }

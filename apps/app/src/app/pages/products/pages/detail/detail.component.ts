@@ -23,7 +23,6 @@ export class DetailComponent implements OnInit {
       .pipe(
         switchMap((paramsData) => {
           this.productId = paramsData['productId'];
-          // Todo: async |
           return this.productService.getProductDetail(this.productId);
         })
       )

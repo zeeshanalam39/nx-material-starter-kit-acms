@@ -1,9 +1,17 @@
 <div>
   <h1>{{ 'Product List' }}</h1>
+
   <app-category
-    *ngFor="let category of categories$ | async"
-    [category]="category"
+    [categories$]="categories$"
+    (selectedCategory)="getProductsByCategory($event)"
   ></app-category>
+
+  <app-dropdown
+    [dropdownPlaceholder]="dropdownPlaceholder"
+    [dropdownOptions]="dropdownOptions"
+    (selected)="sortProducts($event)"
+  ></app-dropdown>
+
   <app-product
     *ngFor="let product of products$ | async"
     [product]="product"
