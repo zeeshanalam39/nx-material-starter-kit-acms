@@ -17,7 +17,7 @@ const routes: Routes = [
     component: AddProductComponent,
   },
   {
-    path: 'product',
+    path: 'product/:productId',
     pathMatch: 'prefix',
     component: DetailComponent,
   },
