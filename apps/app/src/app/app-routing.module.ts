@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddProductComponent } from './pages/products/pages/forms/add-product/add-product.component';
-import { ProductListComponent } from './pages/products/pages/listing/product-list/product-list.component';
-import { ProductsByCategoryComponent } from './pages/products/pages/listing/products-by-category/products-by-category.component';
+import { DetailComponent } from './pages/detail/detail.component';
+import { AddProductComponent } from './pages/forms/add-product/add-product.component';
+import { ProductListComponent } from './pages/listing/product-list/product-list.component';
+import { ProductsByCategoryComponent } from './pages/listing/products-by-category/products-by-category.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/products', pathMatch: 'full' },
   {
     path: 'products',
     pathMatch: 'full',
@@ -19,16 +19,15 @@ const routes: Routes = [
   {
     path: 'product',
     pathMatch: 'prefix',
-    loadChildren: () =>
-      import('../app/pages/products/pages/detail/detail.module').then(
-        (m) => m.DetailModule
-      ),
+    component: DetailComponent,
   },
   {
     path: ':productCategory/products',
     pathMatch: 'full',
     component: ProductsByCategoryComponent,
   },
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '**', redirectTo: '/products' },
 ];
 
 @NgModule({

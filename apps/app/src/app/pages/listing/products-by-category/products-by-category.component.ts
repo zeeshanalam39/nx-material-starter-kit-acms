@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IProduct } from 'apps/app/src/app/shared/models/product.interface';
-import { ProductService } from 'apps/app/src/app/shared/services/product.service';
 import { combineLatest, Observable, Subscription } from 'rxjs';
+import { IProduct } from '../../../shared/models/product.interface';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-products-by-category',

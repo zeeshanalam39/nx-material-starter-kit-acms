@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription, switchMap } from 'rxjs';
-import {
-  IDropdown,
-  IProduct,
-} from '../../../../../shared/models/product.interface';
-import { ProductService } from '../../../../../shared/services/product.service';
+import { IProduct, IDropdown } from '../../../shared/models/product.interface';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-product-list',

@@ -3,8 +3,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IAddProduct } from '../../../../../shared/models/product.interface';
-import { ProductService } from '../../../../../shared/services/product.service';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-add-product',

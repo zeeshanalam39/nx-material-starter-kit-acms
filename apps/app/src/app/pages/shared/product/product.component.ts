@@ -1,12 +1,18 @@
 // import { ChangeDetectionStrategy } from '@angular/compiler';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IProduct } from '../../../../../shared/models/product.interface';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { IProduct } from '../../../shared/models/product.interface';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponent {
   @Input() product!: IProduct;
